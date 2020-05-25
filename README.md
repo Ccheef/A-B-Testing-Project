@@ -12,3 +12,43 @@ The hypothesis was that this might set clearer expectations for students upfront
 
 The unit of diversion is a cookie, although if the student enrolls in the free trial, they are tracked by user-id from that point forward. The same user-id cannot enroll in the free trial twice. For users that do not enroll, their user-id is not tracked in the experiment, even if they were signed in when they visited the course overview page.
 
+Experimental Design
+-------------------
+
+### All Metrics
+
+* **Number of cookies**: Number of unique cookies to view course overview page.
+* **Number of clicks**: Number of unique cookies to click the "Start Free Trial" button (which happens before the free trial screener is triggered).
+* **Number of user-ids**: Number of users who enroll in the free trial.
+* **Click-through-probability**: Number of unique cookies to click the "Start Free Trial" button divided by number of unique cookies to view the course overview page.
+* **Gross conversion**: Number of user-ids to complete checkout and enroll in free trial divided by number of unique cookies to click "Start Free Trial" button.
+* **Retention**: Number of user-ids to remain enrolled past the 14-day boundary (and thus make atleast one payment) divided by number of users to enroll in the free trial.
+* **Net conversion**: Number of user-ids to remain enrolled past the 14-day boundary divided by the number of unique cookies to click the "Start Free Trial" button.
+
+### Metric Choice
+
+Invariant metrics are those should not be affected by experiment. One could expect a similar result of such metrics both on control and experiment groups.
+The invariant metrics for the given test are as follow:
+#### Invariant metrics:
+  1. **Number of cookies**: This is the unit of diversion and since the visits to the course page happen before the experiment, we should expect similar metrics between control and experiment groups.
+
+  2. **Number of clicks**: Since the clicks happen before the screener, the metric is independent of the test. So, the metric should be evenly distributed among the control and experiment groups.
+
+  3. **Click-through-probability**: This metric is the ratio between the two metrics above. Since the two metrics above are not affected by the experiment, the ratio should not be affected too.
+
+
+#### Evaluation metrics:
+The evaluation metrics are used to measure which variation is better. Each evaluation metric is associated with a minimum difference (dmin) that must be observed for consideration in the decision to launch the experiment.
+  1. **Gross conversion**: Ideally, we expect to the decreased gross conversion rate in the experiment group, because students will be deferred to enroll in the free trial if they know they don’t have enough studying. 
+
+  2. **Rentention**: We expect the retention rate to go up because students have clearer expectation of the course time requirements and thus more likely to stay in the course after they enrolled.
+
+  3. **Net conversion**: Ideally, net conversion rate would remain similar or increase in the experiment group. Students remain enrolled past the 14-day boundary might be similar between the control and experiment groups. The difference is that unprepared students in the experiment would enroll after they the screener while the unprepared students in the control group would drop within the first 14 days. On the other hand, since students are well informed, the students in the experiment may plan accordingly and still choose to enroll with fewer dropouts. So, the net conversion rate might go up. 
+
+
+#### Unused metrics:
+
+  1. **Number of user-ids**: User-ids are tracked only after enrolling in the free trial and equal distribution between the control and experimental branches would not be expected. User-id count could be used to evaluate how many enrollments stayed beyond the 14 day free trial boundary, but it is not normalized which means the number of cookies could have effect (Gross conversion would be better as it is normalized)
+
+
+
