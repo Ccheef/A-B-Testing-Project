@@ -171,3 +171,32 @@ Standard Deviation: 0.0007
 Since 0.0001 is in the confidence interval, so this metric passes the sanity check. 
 ```
 
+### Result Analysis
+
+#### Effect Size Test
+
+Since our experiment passed the sanity check, we can test whether the evaluation metrics are statistically and practically significant. Similar to the methodologies with the click-through-probability, we can check the 95% confidence intervals of the gross and net conversion rates. 
+
+```
+Gross Conversion Rate: 
+Probability in the control group: 0.2189
+Probability in the experiment group: 0.1983
+Pooled probability: 0.2086
+Observed difference = -0.0206
+Standard Deviation: 0.0044
+95% CI: [-0.0291, -0.0120]
+Practical Significant Boundary: 0.01
+Since 0 is not in the 95% CI, the metric is statistically significant as well as practically significant. 
+```
+
+```
+Net Conversion Rate: 
+Probability in the control group: 0.1176
+Probability in the experiment group: 0.1127
+Pooled probability: 0.1151
+Observed difference = -0.0049
+Standard Deviation: 0.0034
+95% CI: [-0.0116, 0.0019]
+Practical Significant Boundary: 0.0075
+Since 0 is in the 95% CI, the metric is not statistically significant as well as not practically significant.  
+```
