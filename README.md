@@ -200,3 +200,46 @@ Standard Deviation: 0.0034
 Practical Significant Boundary: 0.0075
 Since 0 is in the 95% CI, the metric is not statistically significant as well as not practically significant.  
 ```
+
+#### Sign Tests
+
+[Use the calculator](http://graphpad.com/quickcalcs/binomial2/)
+we can get the results of sign test. For the mathematics behind sign test, refer the [link](http://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_nonparametric/BS704_Nonparametric5.html)
+```
+Gross Conversion Rate: 
+Number of success: 4
+Number of Trials: 23
+Probability: 0.5
+Two-tailed p-value = 0.0026
+Statistically Significant: Yes
+```
+
+```
+NET Conversion Rate: 
+Number of success: 10
+Number of Trials: 23
+Probability: 0.5
+Two-tailed p-value = 0.6776
+Statistically Significant: NO
+```
+
+#### Summary
+The Bonferroni correction was not used because we want all the evaluation metrics to pass in order to launch. The Bonferroni correction is useful in reducing Type I errors (i.e. when any metric can pass in order to launch), and not necessarily effective in reducing Type II errors. 
+Both the Effect Size Tests and Sign Tests have produced same results, both Gross Conversion to be statistically significant and Net Conversion not statistically significant. 
+
+
+### Recommendation
+The experiment causes Gross Conversion Rate to decrease both statistically and practically significant. Though not statistically and practically significant, the Net Conversion Rate does decrease a too some extent, which means it is possible that the number of students who pay the course tuition will decrease and thus lower revenue for Udacity. So, we may try other tests to further verify the decrease in the net conversion is significant or not before we have confidence launching the experiment. So, I suggest not launch the experiment right now. Otherwise, Udacity should consult with the relevant stakeholders to discuss the decrease in the expenditure for the coaching resources will make up the lower payments from students before launching the experiment.
+
+## Follow-Up Experiment
+The experiment above set the expectation of learning time required for students before enrollment, and thus only retain the students who think they have enough time. However, there are some other reasons for the students not continuing the coursework after 14 days. For example, students may not have enough pre-requisite knowledge or they think the course tuition will be too high for them to finish the course. For the first 14 days after enrollment, we could set up the experiment which shows a window and asks a student the reason for him/her to leave the course if the student chooses to end the course, and then provide possible solutions. For example, if a student needs to additional study for pre-requisites, Udacity can provide some study resources and extend the course period for the student to learn the pre-requisite. Or if the student has enough time and learning capability, Udacity can promote a plan which asks prepayment for certain months’ tuition with reduced rate, so that the student can finish the course with less cost. So, I suggest this experiment to test whether more students will keep enrolled and finish the course, thus bring more payments for Udacity and improve the Udacity’s capacity for coaching resources planning. 
+
+Hypothesis: The pop-up window will not increase the number for students who enrolled beyond 14-day trial and also students who will finish the whole course. 
+
+Unit of Diversion: User Id as the change after the students who enrolled in the course and had accounts.
+
+Invariant Metrics: User Ids because equal distribution between control and experiment group.
+
+Evaluation Metrics: 
+Retention: The statistically and practically increase of the retention means more students keep enrolled after the 14-day free trial
+Course Finish Rate: The fraction of user-ids who finish all the course section divided by the user-ids who initially enrolled in the course. This is to check whether more students can finish the course with additional help, so that Udacity collect more tuition, have more power to plan coaching resources, and the higher finish rate may encourage more students to take the course. 
