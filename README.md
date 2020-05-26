@@ -53,4 +53,33 @@ The evaluation metrics are used to measure which variation is better. Each evalu
   1. **Number of user-ids**: User-ids are tracked only after enrolling in the free trial and equal distribution between the control and experimental branches would not be expected. User-id count could be used to evaluate how many enrollments stayed beyond the 14 day free trial boundary, but it is not normalized which means the number of cookies could have effect (Gross conversion would be better as it is normalized)
 
 
+### Measuring Variability
+
+Calculate the Standard Deviation for both our Evaluation Metrics. Since all the evaluation metrics are probabilities, we can assume a binomial distribution, which will take on a normal distribution for a large enough sample size.
+
+The Udacity baseline values can be [found here](https://docs.google.com/spreadsheets/d/1MYNUtC47Pg8hdoCjOXaHqF-thheGpUshrFA21BAJnNc/edit#gid=0).
+
+
+```
+Gross conversion: 
+number of clicks = 5000 * 3200 / 40000 = 400 
+Since the number of enrollment follows binomial distribution and the probability of enrolling giving click = 0.20625
+SD = sqrt(400 * 0.20625 * (1-0.20625)) / 400 = 0.02023
+```
+
+```
+Retention: 
+number of enrollment = 5000 * 660 / 40000 = 82.5
+probability of payment given enroll = 0.53
+SD = sqrt(82.5 * 0.53 * (1-0.53)) / 82.5 = 0.054949
+```
+
+```
+Net conversion:
+probability of payment given clicks = 0.1093125
+SD = sqrt(400* 0.1093125 * (1-0.1093125)) / 400= 0.0156
+```
+
+I would like to expect the analytical variance is close to the empirical variance for the gross conversion and for the net conversion: the denominator for these two indicators is the number of clicks, which is also the unit of diversion.
+It would be useful to collect an empirical estimate of the variability for the retention: the unit of diversion was not used in this case, the empirical variance of the retention is more likely to be higher than the analytical variance.
 
