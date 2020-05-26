@@ -1,4 +1,4 @@
-A/B Testing to Determine an Effective Approach to Reduce Early Udacity Course Cancellation
+A/B Testing for Udacity's Free Trial Screener
 ==========================================================================================
 
 Experiment Overview
