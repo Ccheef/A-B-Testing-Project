@@ -128,3 +128,46 @@ We should choose the maximum pageviews among three metrics, so the pageviews nee
 Since the required pageviews are 4741212 and the daily pageviews are 40000, we need around 119 days to run the experiment if we divert 100% traffic to the experiment. This would be too long and too risky as we probably won’t see any benefits from the experiment and we cannot make other experiments concurrently, but we spend all resources which become sunk cost. 
 
 One way to fix this is to eliminate the retention metric. As a result, we only need 685325 pageviews, which only require 18 days to complete if 100% traffic is diverted to this experiment. Generally, this experiment has few risks. It would not affect existing users who had enrolled in the course. It only targets the students who are uncertain about taking the course, but not the students who are determined to take the course. The experiment won’t pose physical, emotional, social, or financial risks to the students and won’t involve in privacy data. So, we can put relatively large portion in this experiment. However, it is not pragmatic to put all the traffic in as we have to avoid some potential bugs and also leave some resources for other experiments. I will give 50% of the traffic, which requires 35 days to run the experiment. 
+
+## Experiment Analysis
+
+### Sanity Checks
+
+Before further analysis, we should check whether the invariant metrics are unchanged for both the control or experiment groups. The data can be found [here](https://docs.google.com/spreadsheets/d/1Mu5u9GrybDdska-ljPXyBjTpdZIUev_6i7t4LRDfXM8/edit#gid=0).
+
+For number of cookies and clicks, if the traffic is assigned to each group at random with probability 0.5, then the number of samples follow the binomial distribution. Thanks to central limit theorem, the probability of samples in each group approximates a normal distribution as ![formula](Binomial_Formula.png)
+
+```
+Number of Cookies:
+Number of pageviews in the control group: 345543
+Number of pageviews in the experiment group: 344660
+Observed Probability: 0.5006
+Expected Probability:0.5
+Standard Deviation: 0.0006
+95% CI: [0.4988, 0.5012]
+Since 0.5006 is in the confidence interval, so this metric passes the sanity check
+```
+```
+Number of Clicks:
+Number of clicks in the control group: 28378
+Number of clicks in the experiment group: 28325
+Observed Probability: 0.5005
+Expected Probability:0.5
+Standard Deviation: 0.002
+95% CI: [0.4959, 0.5041]
+Since 0.5005 is in the confidence interval, so this metric passes the sanity check
+```
+For click through probability(CTP), we want to test CTPexp - CTPcont = 0. The pooled standard error is 
+![formula](t_test_formula.png)
+```
+Click-through-probability:
+Probability in the control group: 0.082126
+Probability in the experiment group: 0.08282
+Pooled probability: 0.082154
+Observed difference = 0.0001
+Expected difference = 0
+Standard Deviation: 0.0007
+95% CI: [-0.0013, 0.0013]
+Since 0.0001 is in the confidence interval, so this metric passes the sanity check. 
+```
+
