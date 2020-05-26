@@ -83,3 +83,48 @@ SD = sqrt(400* 0.1093125 * (1-0.1093125)) / 400= 0.0156
 I would like to expect the analytical variance is close to the empirical variance for the gross conversion and for the net conversion: the denominator for these two indicators is the number of clicks, which is also the unit of diversion.
 It would be useful to collect an empirical estimate of the variability for the retention: the unit of diversion was not used in this case, the empirical variance of the retention is more likely to be higher than the analytical variance.
 
+### Sizing
+
+#### Number of Samples vs Power
+
+I did not use the Bonferroni correction, because the three evaluation metrics are highly correlated with each other and this method is very conservative which can increase the type two error. 
+
+Using this [link](https://www.evanmiller.org/ab-testing/sample-size.html), we can calculate the sample size with alpha = 0.05 and beta 0.2 for all evaluation metrics
+
+```
+Gross conversion: 
+Base Conversion Rate= 0.20625
+dmin = 0.01
+sample size = 25835
+click / pageview ratio = 3200/40000 = 0.08
+number of groups = 2
+required pageviews = 645875
+```
+
+```
+Retention: 
+Base Conversion Rate= 0.53
+dmin = 0.01
+sample size = 39115
+enrollment / pageview ratio = 660/40000 = 0.0165
+number of groups = 2
+required pageviews = 4741212
+```
+
+```
+Net conversion:
+Base Conversion Rate= 0.109313
+dmin = 0.0075
+sample size = 54826
+click / pageview ratio = 3200/40000 = 0.08
+number of groups = 2
+required pageviews = 685325
+```
+
+We should choose the maximum pageviews among three metrics, so the pageviews needed should be 4741212
+
+#### Duration vs Exposure
+
+Since the required pageviews are 4741212 and the daily pageviews are 40000, we need around 119 days to run the experiment if we divert 100% traffic to the experiment. This would be too long and too risky as we probably won’t see any benefits from the experiment and we cannot make other experiments concurrently, but we spend all resources which become sunk cost. 
+
+One way to fix this is to eliminate the retention metric. As a result, we only need 685325 pageviews, which only require 18 days to complete if 100% traffic is diverted to this experiment. Generally, this experiment has few risks. It would not affect existing users who had enrolled in the course. It only targets the students who are uncertain about taking the course, but not the students who are determined to take the course. The experiment won’t pose physical, emotional, social, or financial risks to the students and won’t involve in privacy data. So, we can put relatively large portion in this experiment. However, it is not pragmatic to put all the traffic in as we have to avoid some potential bugs and also leave some resources for other experiments. I will give 50% of the traffic, which requires 35 days to run the experiment. 
